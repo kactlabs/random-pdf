@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from collections import defaultdict
+from datetime import datetime
 
 def get_folder_stats(folder_path):
     """Get statistics for PDF files in a folder"""
@@ -60,7 +61,8 @@ def generate_stats():
     for stats in all_stats:
         markdown += f"| {stats['folder']} | {stats['pdf_count']} | {format_size(stats['total_size'])} |\n"
     
-    markdown += f"| **Total** | **{total_pdfs}** | **{format_size(total_size)}** |\n"
+    markdown += f"| **Total** | **{total_pdfs}** | **{format_size(total_size)}** |\n\n"
+    markdown += f"*Generated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*\n"
     
     # Write to README
     with open('README.md', 'w') as f:
