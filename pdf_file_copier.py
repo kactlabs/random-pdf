@@ -32,9 +32,20 @@ def copy_pdf_files(source_folder, dest_folder):
     
     # Copy each PDF file
     copied_count = 0
+    skipped_count = 0
     for pdf_file in pdf_files:
         try:
             dest_file = dest_path / pdf_file.name
+            
+            # Check if file exists with same name and size
+            if dest_file.exists():
+                source_size = pdf_file.stat().st_size
+                dest_size = dest_file.stat().st_size
+                
+                if source_size == dest_size:
+                    skipped_count += 1
+                    continue
+            
             shutil.copy2(pdf_file, dest_file)
             print(f"Copied: {pdf_file.name}")
             copied_count += 1
@@ -42,6 +53,7 @@ def copy_pdf_files(source_folder, dest_folder):
             print(f"Error copying {pdf_file.name}: {e}")
     
     print(f"\nTotal files copied: {copied_count}/{len(pdf_files)}")
+    print(f"Total files skipped due to duplication: {skipped_count}")
 
 
 if __name__ == "__main__":
