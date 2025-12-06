@@ -54,7 +54,7 @@ def generate_stats():
         total_size += stats['total_size']
     
     # Generate markdown table
-    markdown = "# random-pdf\n\n"
+    markdown = "# Random PDF Collection\n\n"
     markdown += "## PDF Statistics\n\n"
     markdown += "| Folder | PDF Count | Total Size |\n"
     markdown += "|--------|-----------|------------|\n"
