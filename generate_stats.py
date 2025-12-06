@@ -5,7 +5,7 @@ from collections import defaultdict
 from datetime import datetime
 
 def get_folder_stats(folder_path):
-    """Get statistics for PDF files in a folder"""
+    """Get statistics for PDF files in a folder recursively"""
     stats = {
         'folder': folder_path.name,
         'pdf_count': 0,
@@ -16,8 +16,9 @@ def get_folder_stats(folder_path):
     if not folder_path.exists():
         return stats
     
-    for file in folder_path.iterdir():
-        if file.is_file() and file.suffix.lower() == '.pdf':
+    # Recursively find all PDF files
+    for file in folder_path.rglob('*.pdf'):
+        if file.is_file():
             size = file.stat().st_size
             stats['pdf_count'] += 1
             stats['total_size'] += size
